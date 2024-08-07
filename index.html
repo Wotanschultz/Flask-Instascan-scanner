@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title%}
+главная страница
+{% endblock %}
+
+{% block body%}
+<div class="container mt-5">
+    <h2>QR-CODE</h2>
+    <form action="/" method="post">
+        <input type="text" name="link" />
+        <button type="submit">Генерировать QR</button>
+    </form>
+</div>
+<div class="generated">
+    <img src ="{{data}}" alt=""/>
+</div>
+<style>
+    .generated {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
+</style>
+{% endblock %}

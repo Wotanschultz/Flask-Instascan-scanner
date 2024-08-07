@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title%}
+главная страница
+{% endblock %}
+
+{% block body%}
+<div class="container mt-5" style="text-align: left;">
+    <h1>Создание заявки</h1>
+    <form method="post">
+        <input type="text" name=id="unit" class="form-control" placeholder="Введите подразделение"><br>
+        <input type="text" name="model" id="model" class="form-control" placeholder="Введите модель картриджа"><br>
+        <textarea name="who" id="who" class="form-control" placeholder="Кто отправил картридж? Напишите ФИО, а также ваш номер"></textarea><br>
+        <input type="submit" class="btn btn-success" value="Отправить">
+
+    </form>
+</div>
+<div class="container mt-5" style="text-align: left;">
+    <h2>QR генератор</h2>
+    <form action="/" method="post">
+        <input type="text" name="link" class="form-control" placeholder="Введите" ><br>
+        <input  type="submit" class="btn btn-success" value="Сгенерировать">
+    </form>
+</div>
+<div class="generated">
+    <img src ="{{data}}" alt=""/>
+</div>
+<head>
+    <title>Instascan</title>
+    <script type="text/javascript" src="static/instascan.min.js"></script>
+  </head>
+  <body>
+    <video style = "position: absolute; left: 310px; top: 650px; border: 3px double darkgreen;" id="preview"> </video>
+    <script type="text/javascript">
+      let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+      scanner.addListener('scan', function (content) {
+        console.log(content);
+      });
+      Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+          scanner.start(cameras[0]);
+        } else {
+          console.error('No cameras found.');
+        }
+      }).catch(function (e) {
+        console.error(e);
+      });
+    </script>
+  </body>
+<style>
+    .generated {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    position: relative;
+    top: 0px; left: -300px;
+    }
+</style>
+{% endblock %}
